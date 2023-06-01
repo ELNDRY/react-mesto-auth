@@ -1,7 +1,21 @@
-# Здесь будет ваш проект на Реакте с авторизацией и регистрацией
+# Project: Mesto-react
+An interactive page where you edit your profile, add photos, delete them and like them.
+This project was bootstrapped with Create React App.
 
-Используйте ваши предыдущие наработки по проекту Mesto. Это может быть работа 11-го спринта или его улучшенная версия после 2-х последних спринтов. 
+## You can view the project by following the [:link](https://elndry.github.io/mesto-react/)
+* [Link to the project layout](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)
 
-Все запросы на авторизацию, регистрацию и проверку токена должны работать через сервис `https://auth.nomoreparties.co`. Остальные запросы, не относящиеся к этой проектной работе могут быть к бэкенду из предыдущих спринтов.
+## Project structure
+The project is organized according to the classical scheme of the file structure of nested-BEM projects.
 
-Успехов!
+## Technologies
+* HTML
+* CSS
+* React
+* Hooks
+* Adaptive layout (Media query - Media feature rules)
+* Flexbox layout
+* Responsive layout (Example of using grids)
+* JavaScript
+* OOP
+* Webpack
