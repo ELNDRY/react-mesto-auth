@@ -1,9 +1,9 @@
 import React from 'react';
 
-export const InfoTooltip = ({ onClose, isSuccess }) => {
+export const InfoTooltip = ({ isOpen, onClose, isSuccess }) => {
     let popupClassName = `popup popup_type_tooltip`
 
-    if (isSuccess) {
+    if (isOpen) {
         popupClassName += ' popup_active';
     }
 
@@ -12,9 +12,11 @@ export const InfoTooltip = ({ onClose, isSuccess }) => {
     return (
         <div className={popupClassName}>
             <div className='popup__container'>
-                <button className='popup__close-cross' type='button' onClick={onClose} aria-label='Закрыть'></button>
-                <div className={iconClassName}></div>
-                <p className='popup__text'>{isSuccess ? 'Вы успешно зарегистрировались!' : 'Что-то пошло не так! Попробуйте еще раз.'}</p>
+                <div className='popup__form popup__form_type_tooltip'>
+                    <button className='popup__close-cross' type='button' onClick={onClose} aria-label='Закрыть'></button>
+                    <div className={iconClassName}></div>
+                    <p className='popup__message'>{isSuccess ? 'Вы успешно зарегистрировались!' : 'Что-то пошло не так! Попробуйте еще раз.'}</p>
+                </div>
             </div>
         </div>
     )

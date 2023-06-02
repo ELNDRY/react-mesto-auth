@@ -27,7 +27,8 @@ export const App = () => {
     const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
     const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
     const [isEditAvatarPopupOpen, setisEditAvatarPopupOpen] = useState(false);
-    const [tooltip, setTooltip] = useState(null)
+    const [isTooltipOpen, setIsTooltipOpen] = useState(false)
+    const [isSuccess, setIsSuccess] = useState(false)
     const [selectedCard, setSelectedCard] = useState(null);
 
     const handleEditAvatarClick = () => setisEditAvatarPopupOpen(true);
@@ -77,7 +78,7 @@ export const App = () => {
         setIsAddPlacePopupOpen(false);
         setisEditAvatarPopupOpen(false);
         setSelectedCard(null);
-        setTooltip(false);
+        setIsTooltipOpen(false);
     }
 
     const handleUpdateUser = (user) => {
@@ -113,7 +114,7 @@ export const App = () => {
             })
     }
 
-    const handleLogin = (email, password) => {
+    const handleLogin = ({ email, password }) => {
         auth.login(email, password)
             .then((response) => {
                 if (response.token) {
@@ -123,32 +124,22 @@ export const App = () => {
                 }
             })
             .catch(err => {
-                const serverResponse = { isSuccess: false };
-                switch (err) {
-                    case 400: serverResponse.message = 'Неверный email или пароль.';
-                        break;
-                    case 401: serverResponse.message = 'Неверный email или пароль.';
-                        break;
-                    default: serverResponse.message = 'Что-то пошло не так! Попробуйте еще раз.'
-                }
-                setTooltip(serverResponse);
+                setIsSuccess(false);
+                setIsTooltipOpen(true);
             })
     }
 
-    const handleRegister = (email, password) => {
+    const handleRegister = ({ email, password }) => {
         auth.register(email, password)
             .then(() => {
-                setTooltip({ isSuccess: true, message: 'Вы успешно заррегистрировались!' });
+                setIsSuccess(true);
                 navigate("/sign-in", { replace: true });
             })
             .catch(err => {
-                const serverResponse = { isSuccess: false };
-                switch (err) {
-                    case 400: serverResponse.message = 'Некорректный email или пароль.';
-                        break;
-                    default: serverResponse.message = 'Что-то пошло не так! Попробуйте еще раз.'
-                }
-                setTooltip(serverResponse);
+                setIsSuccess(false);
+            })
+            .finally(() => {
+                setIsTooltipOpen(true);
             })
     }
 
@@ -157,11 +148,11 @@ export const App = () => {
         localStorage.removeItem('token');
         setCurrentUser(null);
         setCards([]);
-        navigate("/sign-in", {replace: true});
+        navigate("/sign-in", { replace: true });
     }
 
     useEffect(() => {
-        if (localStorage.getItem('token')) {
+        if (isLoggedIn) {
             const token = localStorage.getItem('token');
             auth.checkToken(token)
                 .then(data => {
@@ -175,7 +166,7 @@ export const App = () => {
                     console.error(err);
                 })
         }
-    }, [isLoggedIn]);
+    }, [isLoggedIn, navigate]);
 
 
     return (
@@ -211,7 +202,7 @@ export const App = () => {
                     <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
                     <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlace} />
                     <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-                    <InfoTooltip isSuccess={tooltip} onClose={closeAllPopups} />
+                    <InfoTooltip isOpen={isTooltipOpen} isSuccess={isSuccess} onClose={closeAllPopups} />
                 </CurrentUserContext.Provider>
             </div>
         </div>

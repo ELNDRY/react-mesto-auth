@@ -12,13 +12,13 @@ export const Header = ({ onLogout }) => {
             <img className="header__logo" src={logo} alt="Логотип Mesto Russia" />
             <Routes>
                 <Route path="/" element={
-                    <>
-                        <p>{currentUser?.email}</p>
-                        <button onClick={onLogout}>Выйти</button>
-                    </>
+                    <div className="header__container">
+                        <p className="header__email">{currentUser?.email}</p>
+                        <button className="header__button" onClick={onLogout}>Выйти</button>
+                    </div>
                 } />
-                <Route path="/sign-in" element={<Link to="sign-up">Регистрация</Link>} />
-                <Route path="/sign-up" element={<Link to="sign-in">Войти</Link>} />
+                <Route path="/sign-in" element={<Link className="header__link" to="/sign-up">Регистрация</Link>} />
+                <Route path="/sign-up" element={<Link className="header__link" to="/sign-in">Войти</Link>} />
             </Routes>
         </header>
     )
