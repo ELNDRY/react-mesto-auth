@@ -152,7 +152,7 @@ export const App = () => {
     }
 
     useEffect(() => {
-        if (isLoggedIn) {
+        if (!isLoggedIn) {
             const token = localStorage.getItem('token');
             auth.checkToken(token)
                 .then(data => {
@@ -167,7 +167,6 @@ export const App = () => {
                 })
         }
     }, [isLoggedIn, navigate]);
-
 
     return (
         <div className="page">
