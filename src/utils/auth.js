@@ -1,6 +1,6 @@
 class Auth {
-    constructor({ baseUrl }) {
-        this._url = baseUrl;
+    constructor() {
+        this._url = process.env.NODE_ENV === 'production' ? 'https://api.elndry.students.nomoredomains.xyz' : 'http//localhost:3000';
     }
 
     _checkResponse(res) {
@@ -16,6 +16,7 @@ class Auth {
             headers: {
                 'Content-Type': 'application/json'
             },
+            credentials: 'include',
             body: JSON.stringify({ email, password })
         })
             .then(res => this._checkResponse(res));
@@ -27,6 +28,7 @@ class Auth {
             headers: {
                 'Content-Type': 'application/json'
             },
+            credentials: 'include',
             body: JSON.stringify({ email, password })
         })
             .then(res => this._checkResponse(res))
@@ -38,16 +40,16 @@ class Auth {
             })
     }
 
-    checkToken(token) {
+    checkToken() {
         return fetch(`${this._url}/users/me`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            }
+            },
+            credentials: 'include',
         })
-        .then(res => this._checkResponse(res));
+            .then(res => this._checkResponse(res));
     }
 }
 
-export const auth = new Auth({ baseUrl: 'https://auth.nomoreparties.co' });
+export const auth = new Auth();

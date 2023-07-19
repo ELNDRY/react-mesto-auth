@@ -1,6 +1,6 @@
 class Api {
-    constructor({ baseUrl, headers }) {
-        this._url = baseUrl;
+    constructor({ headers }) {
+        this._url = this._url = process.env.NODE_ENV === 'production' ? 'https://api.elndry.students.nomoredomains.xyz' : 'http//localhost:3000';;
         this._headers = headers;
     }
 
@@ -12,12 +12,12 @@ class Api {
     }
 
     getUserInfo() {
-        return fetch(`${this._url}/users/me`, { headers: this._headers })
+        return fetch(`${this._url}/users/me`, { headers: this._headers, credentials: 'include', })
             .then(res => this._checkResponse(res));
     }
 
     getInitialCards() {
-        return fetch(`${this._url}/cards`, { headers: this._headers })
+        return fetch(`${this._url}/cards`, { headers: this._headers, credentials: 'include', })
             .then(res => this._checkResponse(res));
     }
 
@@ -25,6 +25,7 @@ class Api {
         return fetch(`${this._url}/users/me`, {
             method: 'PATCH',
             headers: this._headers,
+            credentials: 'include',
             body: JSON.stringify(userInfo),
         })
             .then(res => this._checkResponse(res));
@@ -34,6 +35,7 @@ class Api {
         return fetch(`${this._url}/users/me/avatar`, {
             method: 'PATCH',
             headers: this._headers,
+            credentials: 'include',
             body: JSON.stringify(avatar)
         })
             .then(res => this._checkResponse(res));
@@ -43,6 +45,7 @@ class Api {
         return fetch(`${this._url}/cards`, {
             method: 'POST',
             headers: this._headers,
+            credentials: 'include',
             body: JSON.stringify(card),
         })
             .then(res => this._checkResponse(res));
@@ -52,6 +55,7 @@ class Api {
         return fetch(`${this._url}/cards/${cardId}`, {
             method: 'DELETE',
             headers: this._headers,
+            credentials: 'include',
         })
             .then(res => this._checkResponse(res));
     }
@@ -60,6 +64,7 @@ class Api {
         return fetch(`${this._url}/cards/${cardId}/likes`, {
             method: 'PUT',
             headers: this._headers,
+            credentials: 'include',
         })
             .then(res => this._checkResponse(res));
     }
@@ -68,6 +73,7 @@ class Api {
         return fetch(`${this._url}/cards/${cardId}/likes`, {
             method: 'DELETE',
             headers: this._headers,
+            credentials: 'include',
         })
             .then(res => this._checkResponse(res));
     }
@@ -78,9 +84,7 @@ class Api {
 }
 
 export const api = new Api({
-    baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-62',
     headers: {
-        authorization: 'b7b03174-bbfa-4035-a313-c9d956a938c1',
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
     }
-})
+});

@@ -116,14 +116,12 @@ export const App = () => {
 
     const handleLogin = ({ email, password }) => {
         auth.login(email, password)
-            .then((response) => {
-                if (response.token) {
-                    setIsLoggedIn(true);
-                    setCurrentUser({ email: email });
-                    navigate("/", { replace: true })
-                }
+            .then(() => {
+                setIsLoggedIn(true);
+                setCurrentUser({ email: email });
+                navigate("/", { replace: true })
             })
-            .catch(err => {
+            .catch((err) => {
                 setIsSuccess(false);
                 setIsTooltipOpen(true);
             })
@@ -135,7 +133,7 @@ export const App = () => {
                 setIsSuccess(true);
                 navigate("/sign-in", { replace: true });
             })
-            .catch(err => {
+            .catch((err) => {
                 setIsSuccess(false);
             })
             .finally(() => {
@@ -145,7 +143,6 @@ export const App = () => {
 
     const handleLogout = () => {
         setIsLoggedIn(false);
-        localStorage.removeItem('token');
         setCurrentUser(null);
         setCards([]);
         navigate("/sign-in", { replace: true });
@@ -153,8 +150,7 @@ export const App = () => {
 
     useEffect(() => {
         if (!isLoggedIn) {
-            const token = localStorage.getItem('token');
-            auth.checkToken(token)
+            auth.checkToken()
                 .then(data => {
                     if (data.data.email) {
                         setIsLoggedIn(true);
