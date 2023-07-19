@@ -36,7 +36,7 @@ class Auth {
 
     logout() {
         return fetch(`${this._url}/signout`, {
-            method: 'POST',
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
             },

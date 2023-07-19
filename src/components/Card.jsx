@@ -18,7 +18,7 @@ export const Card = ({ card, onCardClick, onCardLike, onCardDelete }) => {
     const isOwn = card.owner === currentUser._id;
     const isLiked = card.likes.some(i => i === currentUser._id);
     const cardLikeButtonClassName = (
-        `element__like ${isLiked && 'element__like_active'}`
+        `element__like ${isLiked ? 'element__like_active' : ''}`
     );
 
     return (

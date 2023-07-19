@@ -53,7 +53,8 @@ export const App = () => {
         const isLiked = card.likes.some((i) => i === currentUser._id);
         api.changeLikeCardStatus(card._id, isLiked)
             .then((newCard) => {
-                setCards((state) => state.map((item) => item._id === newCard._id ? newCard : item));
+                const updateCards = cards.map(c => c._id === newCard.card._id ? newCard.card : c)
+                setCards(updateCards);
             })
             .catch((err) => {
                 console.error(err);
@@ -145,7 +146,10 @@ export const App = () => {
                 setIsLoggedIn(false);
                 setCurrentUser(null);
                 setCards([]);
-                navigate("/sign-out", { replace: true });
+                navigate("/sign-in", { replace: true });
+            })
+            .catch((err) => {
+                console.error(err);
             })
     }
 
