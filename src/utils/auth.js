@@ -36,7 +36,7 @@ class Auth {
 
     logout() {
         return fetch(`${this._url}/signout`, {
-            method: 'GET',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -47,7 +47,7 @@ class Auth {
 
     checkToken() {
         return fetch(`${this._url}/users/me`, {
-            method: 'POST',
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
             },
