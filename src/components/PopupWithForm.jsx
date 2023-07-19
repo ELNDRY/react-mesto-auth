@@ -1,7 +1,7 @@
 import React from 'react'
 
 export const PopupWithForm = ({ formName, formTitle, isOpen, onClose, buttonText, children, onSubmit }) => {
-    const popupСlassName = `popup popup_type_${formName}`
+    let popupСlassName = `popup popup_type_${formName}`
 
     if (isOpen) {
         popupСlassName += ' popup_active';
