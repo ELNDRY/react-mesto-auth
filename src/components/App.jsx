@@ -140,12 +140,12 @@ export const App = () => {
     }
 
     const handleLogout = () => {
-        auth.logout()()
+        auth.logout()
             .then(() => {
                 setIsLoggedIn(false);
                 setCurrentUser(null);
                 setCards([]);
-                navigate("/sign-in", { replace: true });
+                navigate("/sign-out", { replace: true });
             })
     }
 
