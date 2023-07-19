@@ -32,12 +32,17 @@ class Auth {
             body: JSON.stringify({ email, password })
         })
             .then(res => this._checkResponse(res))
-            .then((data) => {
-                if (data.token) {
-                    localStorage.setItem('token', data.token);
-                }
-                return data;
-            })
+    }
+
+    logout() {
+        return fetch(`${this._url}/signout`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+        })
+            .then(res => this._checkResponse(res))
     }
 
     checkToken() {
