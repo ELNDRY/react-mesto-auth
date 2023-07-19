@@ -1,6 +1,6 @@
 class Auth {
     constructor() {
-        this._url = process.env.NODE_ENV === 'production' ? 'https://api.elndry.students.nomoredomains.xyz' : 'http//localhost:3000';
+        this._url = process.env.NODE_ENV === 'production' ? 'http://api.elndry.students.nomoredomains.xyz' : 'http//localhost:3000';
     }
 
     _checkResponse(res) {
